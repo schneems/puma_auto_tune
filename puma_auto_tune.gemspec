@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'auto_tune_puma/version'
+require 'puma_auto_tune/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "auto_tune_puma"
-  gem.version       = AutoTunePuma::VERSION
+  gem.name          = "puma_auto_tune"
+  gem.version       = PumaAutoTune::VERSION
   gem.authors       = ["Richard Schneeman"]
   gem.email         = ["richard.schneeman+rubygems@gmail.com"]
   gem.description   = %q{ }
   gem.summary       = %q{ }
-  gem.homepage      = "https://github.com/schneems/auto_tune_puma"
+  gem.homepage      = "https://github.com/schneems/puma_auto_tune"
   gem.license       = "MIT"
 
   gem.files         = `git ls-files`.split($/)
