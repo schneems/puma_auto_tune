@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.version       = PumaAutoTune::VERSION
   gem.authors       = ["Richard Schneeman"]
   gem.email         = ["richard.schneeman+rubygems@gmail.com"]
-  gem.description   = %q{ }
+  gem.description   = %q{ Puma performance without all the (T)pain }
   gem.summary       = %q{ }
   gem.homepage      = "https://github.com/schneems/puma_auto_tune"
   gem.license       = "MIT"
@@ -18,6 +18,6 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency "puma_worker_killer", "~> 0"
-  gem.add_development_dependency "rake",   "~> 10.1"
+  gem.add_dependency "get_process_mem",  "~> 0"
+  gem.add_development_dependency "rake", "~> 10.1"
 end
