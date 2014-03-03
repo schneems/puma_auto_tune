@@ -1,5 +1,7 @@
 # Puma Auto Tune
 
+[![Build Status](https://travis-ci.org/schneems/puma_auto_tune.png?branch=master)](https://travis-ci.org/schneems/puma_auto_tune)
+
 ## What
 
 Performance without the (T)pain: `puma_auto_tune` will automatically adjust the number of [puma](https://github.com/puma/puma) workers to optimize the performance of your Ruby web application.
