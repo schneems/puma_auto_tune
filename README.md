@@ -67,7 +67,7 @@ To see defaults check out [puma_auto_tune.rb](lib/puma_auto_tune/puma_auto_tune.
 Puma Auto Tune is designed to tune the number of workers for a given application while it is running. Once you restart the program the tuning must start over. Once the algorithm has found the "sweet spot" you can maximize your application throughput by manually setting the number of `workers` that puma starts with. To help you do this Puma Auto Tune outputs semi-regular logs with formatted values.
 
 ```
-puma.resource_ram_mb=476.6328125 puma.current_cluster_size=5
+measure#puma.resource_ram_mb=476.6328125 measure#puma.current_cluster_size=5
 ```
 
 You can use a service such as [librato](https://metrics.librato.com/) to pull values out of your logs and graph them. When you see over time that your server settles on a given `cluster_size` you should set this as your default `puma -w $PUMA_WORKERS` if you're using the CLI to start your app or if you're using a `config/puma.rb` file:
