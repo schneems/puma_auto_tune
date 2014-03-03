@@ -1,10 +1,6 @@
 Bundler.require
 
-require 'puma_worker_killer'
 require 'test/unit'
-
-
-
 
 class PumaRemote
 
@@ -27,7 +23,6 @@ class PumaRemote
   end
 
   def shutdown
-    puts pid.inspect
     if pid
       Process.kill('TERM', pid)
       Process.wait(pid)
