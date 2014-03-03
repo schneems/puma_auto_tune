@@ -9,7 +9,11 @@ module PumaAutoTune
       @master = master
     end
 
-    def mb
+    def name
+      "resource_ram_mb"
+    end
+
+    def amount
       @mb ||= begin
         worker_memory = workers.map {|w| w.memory }.inject(&:+) || 0
         worker_memory + @master.get_memory
