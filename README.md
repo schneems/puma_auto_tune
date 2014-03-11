@@ -173,7 +173,7 @@ PumaAutoTune.hooks do |auto|
     auto.log "Cluster too small. Resizing to add one more worker"
     master.add_worker
     auto.call(:reap_cycle)
-  e
+  end
 end
 ```
 
