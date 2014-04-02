@@ -19,10 +19,14 @@ PumaAutoTune.hooks(:ram) do |auto|
 
   # Called when puma is using too much memory
   auto.set(:out_of_memory) do |memory, master, workers|
-    largest_worker = workers.last # ascending worker size
-    auto.log "Potential memory leak. Reaping largest worker", largest_worker_memory_mb: largest_worker.memory
-    largest_worker.restart
-    auto.call(:reap_cycle)
+    if workers.count > 1
+      largest_worker = workers.last # ascending worker size
+      auto.log "Potential memory leak. Reaping largest worker", largest_worker_memory_mb: largest_worker.memory
+      largest_worker.restart
+      auto.call(:reap_cycle)
+    else
+      auto.log "Out of memory but cannot have less than one worker, you need more RAM"
+    end
   end
 
   # Called when puma is not using all available memory
