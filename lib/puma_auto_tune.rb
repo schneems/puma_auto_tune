@@ -14,11 +14,11 @@ module PumaAutoTune
 
   extend self
 
-  attr_accessor :ram, :max_workers, :frequency, :reap_duration
-  self.ram           = 512  # mb
-  self.max_workers   = INFINITY
-  self.frequency     = 10 # seconds
-  self.reap_duration = 90 # seconds
+  attr_accessor :ram, :max_worker_limit, :frequency, :reap_duration
+  self.ram                = 512  # mb
+  self.max_worker_limit   = INFINITY
+  self.frequency          = 10 # seconds
+  self.reap_duration      = 90 # seconds
 
 
   def self.config

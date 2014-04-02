@@ -12,7 +12,7 @@ PumaAutoTune.hooks(:ram) do |auto|
   auto.wrap(:remove_worker) do |block|
     Proc.new do |resource, master, workers|
       resource.reset
-      PumaAutoTune.max_workers = workers.size - 1
+      PumaAutoTune.max_worker_limit = workers.size - 1
       block.call(*auto.args)
     end
   end
