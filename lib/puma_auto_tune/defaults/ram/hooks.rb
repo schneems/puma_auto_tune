@@ -49,7 +49,7 @@ PumaAutoTune.hooks(:ram) do |auto|
 
   # Called to remove 1 worker from pool. Sets maximum size
   auto.set(:remove_worker) do |memory, master, workers|
-    auto.log "Cluster too large. Resizing to remove one worker"
+    auto.log "Cluster too large. Resizing to remove one worker", max_worker_limit: PumaAutoTune.max_workers
     master.remove_worker
     auto.call(:reap_cycle)
   end
