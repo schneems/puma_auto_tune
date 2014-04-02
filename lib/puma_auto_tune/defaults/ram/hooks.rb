@@ -28,7 +28,7 @@ PumaAutoTune.hooks(:ram) do |auto|
   # Called when puma is not using all available memory
   # PumaAutoTune.max_workers is tracked automatically by `remove_worker`
   auto.set(:under_memory) do |memory, master, workers|
-    theoretical_max_mb = memory + workers.first.memory # assending worker size
+    theoretical_max_mb = memory + workers.first.memory # ascending worker size
     if theoretical_max_mb < PumaAutoTune.ram && workers.size + 1 < PumaAutoTune.max_workers
       auto.call(:add_worker)
     else
