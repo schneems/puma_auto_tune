@@ -1,7 +1,7 @@
 PumaAutoTune.hooks(:ram) do |auto|
   auto.wrap(:reap_cycle) do |block|
     Proc.new do |resource, master, workers|
-      ends_at = Time.now - PumaAutoTune.reap_duration
+      ends_at = Time.now + PumaAutoTune.reap_duration
       while Time.now < ends_at
         sleep 1
         block.call(*auto.args)
