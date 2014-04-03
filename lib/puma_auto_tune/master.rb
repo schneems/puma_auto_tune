@@ -33,7 +33,9 @@ module PumaAutoTune
     end
 
     def workers
-      @master.instance_variable_get("@workers").map {|w| PumaAutoTune::Worker.new(w) }
+      @master.instance_variable_get("@workers").
+        reject { |w| w.instance_variable_get("@first_term_sent") }.
+        map    { |w| PumaAutoTune::Worker.new(w) }
     end
 
     private
