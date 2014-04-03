@@ -40,8 +40,9 @@ module PumaAutoTune
       elapsed = (Time.now - @started).ceil
       msg     = ["PumaAutoTune (#{elapsed}s): #{msg}"]
 
-      options[@resource.name] = @resource.amount
+      options[@resource.name]         = @resource.amount
       options["current_cluster_size"] = @resource.workers.size
+      options["max_worker_limit"]     = PumaAutoTune.max_worker_limit
       options.each { |k, v| msg << "measure#puma.#{k.to_s.downcase}=#{v}" }
       puts msg.join(" ")
     end
