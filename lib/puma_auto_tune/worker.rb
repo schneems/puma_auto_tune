@@ -2,7 +2,8 @@ module PumaAutoTune
   class Worker
 
     def initialize(worker)
-      @worker = worker
+      @worker     = worker
+      @restarting = false
     end
 
     def memory
