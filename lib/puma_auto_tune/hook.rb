@@ -9,24 +9,22 @@ module PumaAutoTune
     end
 
     def define_hook(name, &block)
-      wrap_hook(name)
-      @hooks[name] = block
+      if wrap = @wraps[name]
+        @hooks[name] = wrap.call(block)
+      else
+        @hooks[name] = block
+      end
     end
     alias :set :define_hook
 
     def call(name)
       hook = @hooks[name] or raise "No such hook #{name.inspect}. Available: #{@hooks.keys.inspect}"
-      hook.call(self.args)
+      hook.call(*self.args)
     end
 
+    # define a hook by passing a block
     def wrap_hook(name, &block)
-      if block
-        @wraps[name] = block
-      else
-        if wrap = @wraps[name]
-          @hooks[name] = wrap.call(@hooks[name])
-        end
-      end
+      @wraps[name] = block
     end
     alias :wrap :wrap_hook
 
