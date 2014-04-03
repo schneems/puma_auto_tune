@@ -4,18 +4,19 @@ require 'test/unit'
 
 class PumaRemote
 
-  attr_accessor :path, :frequency, :config, :log, :ram, :pid
+  attr_accessor :path, :frequency, :config, :log, :ram, :pid, :puma_workers
 
   def initialize(options = {})
-    @path      = options[:path]      || fixture_path("app.ru")
-    @frequency = options[:frequency] || 1
-    @config    = options[:config]    || fixture_path("config.rb")
-    @log       = options[:log]       || new_log_file
-    @ram       = options[:ram]       || 512
+    @path         = options[:path]         || fixture_path("app.ru")
+    @frequency    = options[:frequency]    || 1
+    @config       = options[:config]       || fixture_path("config.rb")
+    @log          = options[:log]          || new_log_file
+    @ram          = options[:ram]          || 512
+    @puma_workers = options[:puma_workers] || 3
   end
 
-  def wait
-    until log.read.match %r{booted}
+  def wait(regex = %r{booted})
+    until log.read.match regex
       sleep 1
     end
     sleep 1
@@ -34,7 +35,7 @@ class PumaRemote
   def spawn
     FileUtils.mkdir_p(log.dirname)
     FileUtils.touch(log)
-    @pid = Process.spawn("exec env PUMA_FREQUENCY=#{frequency} PUMA_RAM=#{ram} bundle exec puma #{path} -C #{config} > #{log}")
+    @pid = Process.spawn("exec env PUMA_WORKERS=#{puma_workers} PUMA_FREQUENCY=#{frequency} PUMA_RAM=#{ram} bundle exec puma #{path} -C #{config} > #{log}")
     self
   end
 
