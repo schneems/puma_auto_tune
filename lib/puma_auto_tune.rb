@@ -36,7 +36,7 @@ module PumaAutoTune
   end
 
   def start
-    hooks.map {|name, hook| hook.auto_cycle}
+    hooks.map {|name, hook| hook.auto_cycle }
   end
 end
 
