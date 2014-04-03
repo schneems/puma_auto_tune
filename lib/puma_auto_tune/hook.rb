@@ -32,10 +32,7 @@ module PumaAutoTune
 
     def auto_cycle
       Thread.new do
-        loop do
-          sleep PumaAutoTune.frequency
-          call(:cycle) if @resource.master.running?
-        end
+        self.call(:cycle)
       end
     end
 
