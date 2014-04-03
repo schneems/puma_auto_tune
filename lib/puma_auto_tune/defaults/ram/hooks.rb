@@ -19,7 +19,7 @@ PumaAutoTune.hooks(:ram) do |auto|
 
   # Called when puma is using too much memory
   auto.set(:out_of_memory) do |memory, master, workers|
-    if workers.count > 1
+    if workers.size > 1
       largest_worker = workers.last # ascending worker size
       auto.log "Potential memory leak. Reaping largest worker", largest_worker_memory_mb: largest_worker.memory
       largest_worker.restart
