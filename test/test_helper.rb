@@ -23,13 +23,17 @@ class PumaRemote
     self
   end
 
+  def cleanup
+    shutdown
+    FileUtils.remove_entry_secure log
+  end
+
   def shutdown
     if pid
       Process.kill('TERM', pid)
       Process.wait(pid)
     end
-
-    FileUtils.remove_entry_secure log
+  rescue Errno::ESRCH
   end
 
   def spawn
