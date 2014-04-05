@@ -15,12 +15,17 @@ class PumaRemote
     @puma_workers = options[:puma_workers] || 3
   end
 
-  def wait(regex = %r{booted})
-    until log.read.match regex
-      sleep 1
+  def wait(regex = %r{booted}, timeout = 5)
+    Timeout::timeout(timeout) do
+      until log.read.match regex
+        sleep 1
+      end
     end
     sleep 1
     self
+  rescue Timeout::Error
+    puts "Timeout waiting for #{regex.inspect} in \n#{log.read}"
+    false
   end
 
   def cleanup
