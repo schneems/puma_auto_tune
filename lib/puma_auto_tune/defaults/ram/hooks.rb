@@ -5,7 +5,7 @@ PumaAutoTune.hooks(:ram) do |auto|
     if memory > PumaAutoTune.ram # mb
       auto.call(:out_of_memory)
     else
-      auto.call(:under_memory) if memory + workers.last.memory
+      auto.call(:under_memory)
     end
   end
 
