@@ -20,7 +20,6 @@ module PumaAutoTune
   self.frequency          = 10 # seconds
   self.reap_duration      = 90 # seconds
 
-
   def self.config
     yield self
     self
