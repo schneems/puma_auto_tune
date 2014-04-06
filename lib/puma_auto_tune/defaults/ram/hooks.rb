@@ -19,7 +19,7 @@ PumaAutoTune.hooks(:ram) do |auto|
 
   # Called when puma is using too much memory
   auto.set(:out_of_memory) do |memory, master, workers|
-    if workers.size > 1 && PumaAutoTune.max_worker_limit > 1
+    if workers.size > 1
       largest_worker = workers.last # ascending worker size
       auto.log "Potential memory leak. Reaping largest worker", largest_worker_memory_mb: largest_worker.memory
       largest_worker.restart
@@ -49,9 +49,8 @@ PumaAutoTune.hooks(:ram) do |auto|
 
   # Called to remove 1 worker from pool. Sets maximum size
   auto.set(:remove_worker) do |memory, master, workers|
-    if workers.size > 1 && PumaAutoTune.max_worker_limit > 1
-      PumaAutoTune.max_worker_limit = workers.size if PumaAutoTune::INFINITY == PumaAutoTune.max_worker_limit
-      PumaAutoTune.max_worker_limit -= 1
+    if workers.size > 1
+      PumaAutoTune.max_worker_limit = workers.size - 1
       auto.log "Cluster too large. Resizing to remove one worker"
       master.remove_worker
       auto.call(:reap_cycle)
