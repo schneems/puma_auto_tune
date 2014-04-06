@@ -4,18 +4,19 @@ require 'test/unit'
 
 class PumaRemote
 
-  attr_accessor :path, :frequency, :config, :log, :ram, :pid, :puma_workers
+  attr_accessor :path, :frequency, :reap_duration, :config, :log, :ram, :pid, :puma_workers
 
   def initialize(options = {})
-    @path         = options[:path]         || fixture_path("app.ru")
-    @frequency    = options[:frequency]    || 1
-    @config       = options[:config]       || fixture_path("config.rb")
-    @log          = options[:log]          || new_log_file
-    @ram          = options[:ram]          || 512
-    @puma_workers = options[:puma_workers] || 3
+    @path           = options[:path]         || fixture_path("app.ru")
+    @frequency      = options[:frequency]    || 1
+    @reap_duration  = options[:reap_duration]
+    @config         = options[:config]       || fixture_path("config.rb")
+    @log            = options[:log]          || new_log_file
+    @ram            = options[:ram]          || 512
+    @puma_workers   = options[:puma_workers] || 3
   end
 
-  def wait(regex = %r{booted}, timeout = 5)
+  def wait(regex = %r{booted}, timeout = 20)
     Timeout::timeout(timeout) do
       until log.read.match regex
         sleep 1
@@ -44,7 +45,14 @@ class PumaRemote
   def spawn
     FileUtils.mkdir_p(log.dirname)
     FileUtils.touch(log)
-    @pid = Process.spawn("exec env PUMA_WORKERS=#{puma_workers} PUMA_FREQUENCY=#{frequency} PUMA_RAM=#{ram} bundle exec puma #{path} -C #{config} > #{log}")
+    env = {}
+    env["PUMA_WORKERS"]       = puma_workers
+    env["PUMA_FREQUENCY"]     = frequency
+    env["PUMA_RAM"]           = ram
+    env["PUMA_REAP_DURATION"] = reap_duration
+    env_string = env.map {|key, value| "#{key}=#{value}" if value }.join(" ")
+
+    @pid = Process.spawn("exec env #{env_string} bundle exec puma #{path} -C #{config} > #{log}")
     self
   end
 
