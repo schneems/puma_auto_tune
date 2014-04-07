@@ -16,7 +16,7 @@ class PumaRemote
     @puma_workers   = options[:puma_workers] || 3
   end
 
-  def wait(regex = %r{booted}, timeout = 20)
+  def wait(regex = %r{booted}, timeout = 30)
     Timeout::timeout(timeout) do
       until log.read.match regex
         sleep 1
