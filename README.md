@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/schneems/puma_auto_tune.png?branch=master)](https://travis-ci.org/schneems/puma_auto_tune)
 
+## Stability
+
+Please do not use this library in production until this [schneems/get_process_mem#7](https://github.com/schneems/get_process_mem/issues/7) has been fixed.
+
 ## What
 
 Performance without the (T)pain: `puma_auto_tune` will automatically adjust the number of [puma](https://github.com/puma/puma) workers to optimize the performance of your Ruby web application.
