@@ -53,7 +53,7 @@ PumaAutoTune.config do |config|
 end
 ```
 
-The default is `512` which matches the amount of ram available on a Heroku dyno. There are a few other advanced config options:
+We will attempt to detect your RAM size if you are running on Heroku. If we cannot, the default is `512` mb. There are a few other advanced config options:
 
 ```ruby
 PumaAutoTune.config do |config|
