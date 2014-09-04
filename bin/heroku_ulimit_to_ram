@@ -1,0 +1,21 @@
+#!/bin/bash
+
+limit=$(ulimit -u)
+
+case $limit in
+256)
+  ram=512
+  ;;
+512)
+  ram=1024
+  ;;
+32768)
+  ram=8192
+  ;;
+*)
+  echo 'nope';
+  exit 1;
+  ;;
+esac
+
+echo $ram

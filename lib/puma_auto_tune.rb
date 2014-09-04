@@ -14,8 +14,19 @@ module PumaAutoTune
 
   extend self
 
+  def self.default_ram
+    result = `bin/heroku_ulimit_to_ram`
+    default = if $?.success?
+      Integer(result)
+    else
+      512
+    end
+    puts "Default RAM set to #{default}"
+    default
+  end
+
   attr_accessor :ram, :max_worker_limit, :frequency, :reap_duration
-  self.ram                = 512  # mb
+  self.ram                = self.default_ram  # mb
   self.max_worker_limit   = INFINITY
   self.frequency          = 10 # seconds
   self.reap_duration      = 90 # seconds
