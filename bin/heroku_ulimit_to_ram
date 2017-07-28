@@ -10,7 +10,10 @@ case $limit in
   ram=1024
   ;;
 32768)
-  ram=8192
+  ram=14000
+  ;;
+16384)
+  ram=2500
   ;;
 *)
   echo 'nope';
