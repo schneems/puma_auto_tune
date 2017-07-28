@@ -63,7 +63,7 @@ PumaAutoTune.config do |config|
 end
 ```
 
-To see defaults check out [puma_auto_tune.rb](lib/puma_auto_tune/puma_auto_tune.rb)
+To see defaults check out [puma_auto_tune.rb](lib/puma_auto_tune.rb)
 
 
 ## Hitting the Sweet Spot
